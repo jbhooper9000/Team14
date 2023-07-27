@@ -12,6 +12,8 @@ st.set_page_config(page_title ='Red Box',
                    layout = 'wide')
 
 st.title('Red Box 🟥: Team 14')
+st.subheader('This tool is design to help summarise documents and refer you to any relevent news articles.')
+
 uploaded_file = st.file_uploader('Please upload a document')
 with st.spinner(text='In progress...'):
     if uploaded_file is not None:
