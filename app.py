@@ -1,25 +1,37 @@
-from config import apikey
+from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
+from config import ANTHROPIC_API_KEY
 import streamlit as st
-import requests
+from PyPDF2 import PdfFileReader
+
+# project
+from prompt import prompt
+
 
 st.title('Red Box : Team 114')
 
 uploaded_file = st.file_uploader('Please upload a document')
 if uploaded_file is not None:
-    file_details = {'name':uploaded_file.name,
-                    'type':uploaded_file.type,
-                    'size':uploaded_file.size}
-    st.write(file_details)
-    
-    # Send file to Claude API
-    api_url = 'https://api.anthropic.com/v1/claude'
-    api_key = 'YOUR_API_KEY'
-    headers = {'Authorization': f'Bearer {api_key}'}
-    files = {'file': uploaded_file.getvalue()}
-    res = requests.post(api_url, headers=headers, files=files)
+    pdf_reader = PdfFileReader(uploaded_file)
+    page_count = pdf_reader.getNumPages()
+    document_text = ""
+    for i in range(page_count):
+        page = pdf_reader.getPage(i)
+        document_text += page.extractText()
 
-    # Display Claude response
-    if res.status_code == 200:
-        st.write(res.json())
-    else:
-        st.error('Error getting Claude response')
+
+    prompt_text = prompt
+
+    claude_query = f"{HUMAN_PROMPT}" + prompt_text + document_text + f"{AI_PROMPT}"
+
+    anthropic = Anthropic(
+        api_key=ANTHROPIC_API_KEY
+    )
+
+    completion = anthropic.completions.create(
+        model="claude-2",
+        max_tokens_to_sample=300,
+        prompt=claude_query,
+    )
+
+
+    st.write(completion.completion)
