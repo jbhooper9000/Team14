@@ -2,9 +2,9 @@ from config import apikey
 import streamlit as st
 import requests
 
-st.title('Claude File Analyzer')
+st.title('Red Box : Team 114')
 
-uploaded_file = st.file_uploader('Choose a file')
+uploaded_file = st.file_uploader('Please upload a document')
 if uploaded_file is not None:
     file_details = {'name':uploaded_file.name,
                     'type':uploaded_file.type,
