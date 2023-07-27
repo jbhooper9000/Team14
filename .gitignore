@@ -12,3 +12,6 @@
 # Key
 config.py
 .env
+
+# environment
+.venv/

@@ -1,2 +1,4 @@
 anthropic==0.3.6
-dotenv==0.05
+dotenv==0.0.5
+PyPDF2==2.12.1
+streamlit

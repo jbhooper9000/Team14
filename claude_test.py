@@ -5,21 +5,33 @@ from config import ANTHROPIC_API_KEY
 
 # project
 from prompt import prompt
-document = "user document text imported from frontend"
-prompt_text = "You are responsible for summarising important documents for a CEO. Time is tight, so you need to pick the most important points, and raise anything that may be problematic. Please summarise the report below by pulling out the key themes in 5 bullet points. Please also point out if it does not align with the Conservative manifesto pledges, and if any themes in the document have been in the news recently. Also flag if the document would also be relevant for another UK government department"
+import streamlit as st
+from PyPDF2 import PdfFileReader
 
-anthropic = Anthropic(
-    api_key=ANTHROPIC_API_KEY
-)
+st.title('Red Box : Team 14')
+
+uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
+if uploaded_file is not None:
+    pdf_reader = PdfFileReader(uploaded_file)
+    page_count = pdf_reader.getNumPages()
+    text = ""
+    for i in range(page_count):
+        page = pdf_reader.getPage(i)
+        text += page.extractText()
+
+    document = text
+    prompt_text = prompt
+    anthropic = Anthropic(
+        api_key=ANTHROPIC_API_KEY
+    )
+
+    prompt = f"{HUMAN_PROMPT}" + prompt_text + document + f"{AI_PROMPT}"
+
+    completion = anthropic.completions.create(
+        model="claude-2",
+        max_tokens_to_sample=300,
+        prompt=prompt,
+    )
 
 
-prompt = f"{HUMAN_PROMPT}" + prompt_text + document + f"{AI_PROMPT}"
-
-completion = anthropic.completions.create(
-    model="claude-2",
-    max_tokens_to_sample=300,
-    prompt=prompt,
-)
-
-
-print(completion.completion)
+    st.write(completion.completion)
