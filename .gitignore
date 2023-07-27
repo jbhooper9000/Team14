@@ -1,0 +1,10 @@
+#  Caches
+**/.ipynb_checkpoints/*
+**/__pycache__/*
+
+# IDE config
+.idea/
+
+
+# Other
+.DS_Store
