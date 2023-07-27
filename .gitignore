@@ -8,3 +8,6 @@
 
 # Other
 .DS_Store
+
+# Key
+config.py
