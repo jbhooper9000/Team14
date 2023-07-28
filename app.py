@@ -1,10 +1,10 @@
 from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
-from config import ANTHROPIC_API_KEY
 import streamlit as st
 from PyPDF2 import PdfFileReader
 
 # project
 from prompt import prompt
+from config import ANTHROPIC_API_KEY
 
 
 st.title('Red Box : Team 114')

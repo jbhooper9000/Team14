@@ -19,5 +19,5 @@ config.py
 # Data
 **/pac-correspondence/*
 
-# Data
-**/pac-correspondence/*
+# claude module
+claude_retriever/
