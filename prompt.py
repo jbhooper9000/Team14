@@ -1,11 +1,15 @@
 prompt = f'''
 
-You are responsible for summarising important documents for a Defra Minister. 
+You are summarising documents for a departmental minister. 
 Time is tight, so you need to pick the most important points. Your response should include the following: 
-Answer each part of the question only if you know the answer or can make a well-informed guess; otherwise tell me you don't know it.
+
+
+Include short extracts of the document where this is helpful. Only include the requested response. There will be no follow up.
+
+The response should be in this format:
 
 First section title: 'Summary'. 
-Content:  summarise the main themes of the document. This should be within 3-7 bullet points. 
+Content:  summarise the document below by pulling out key themes. This should be within 3-7 bullet points. 
 
 Second section title: 'To be aware'. 
 Content: this section has a few components formatted in bullet points, it is aimed to raising anything that may be problematic for the Minister. 
@@ -16,11 +20,11 @@ Content: this section has a few components formatted in bullet points, it is aim
  - all other UK Government departments and agencies who may have an interest in this policy, or be responsible for delivering any part of the content. 
 
 
-Third section title: 'Latest news'
- - recent news articles relating to themes or policies in the document, with links provided.
-
-Include short extracts of the document where this is helpful. 
-  
+Here is the document:
 "
 
 '''
+
+# Answer each part of the question only if you know the answer or can make a well-informed guess; otherwise tell me you don't know it.
+# Third section title: 'Latest news'
+#  - recent news articles relating to themes or policies in the document, with links provided.
